@@ -1,19 +1,15 @@
-  <h1>Movies</h1>
-  <table>
+`  <h1 id='headername' class='blockheader'>Movies</h1>
+  <table class='blockheader'>
     <thead>
       <th>&nbsp;</th>
-      <th>Id</th>
       <th>Title</th>
       <th>Genre</th>
-      <th>Thumbnail</th>
     </thead>
     <tbody id="movie">
-      <tr>
-        <td><a href="#" data-id="{{movie.id}}" class="table-bordered table-striped table-responsive"></td>
-        <td>${movie.id}</td>
-        <td>${movie.title}</td>
-        <td>${movie.genre}</td>
-        <td><img src="{{movie.thumbnail}}" alt="{{movie.title}}"></td>
+      <tr ng-repeat='movie in movies'>
+        <td><a href="#" data-id="{{movie.id}}" class="articledetail"></td>
+        <td>{{movie.title}}</td>
+        <td>{{movie.genre}}</td>
         </tr>
     </tbody>
-  </table>
+  </table> `

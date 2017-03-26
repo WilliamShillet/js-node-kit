@@ -1,12 +1,15 @@
 /* eslint-disable no-unused-vars */
-/** Namespace for Movie App
-/* Here is where you build the MovieApp module */
+/** Service for Movie App
+/* Here is where you build the MovieApp service */
+//import in template
+import view from './views/movies.html';
+
 export default (app)=>
 {
   app.directive('movieInfo',(movieList)=>
 {
   return {
-     template: `<h1 ng-repeat='movie in movies'> {{movie.title}}!</h1>`,
+     template: view ,
      restrict:'E',
      controller:($scope)=>{
        $scope.movies = movieList;

@@ -49,6 +49,11 @@ export default {
   options: {
     name: '[images][name].[ext]',
   },
+},
+{
+  test: /\.html$/,
+  exclude: /(node_modules|bower_components)/,
+  loader: 'raw-loader'
 }
     ]
   }

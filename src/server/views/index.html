@@ -9,18 +9,13 @@
   see https://github.com/jaketrent/html-webpack-template/blob/master/index.ejs
   -->
   <!DOCTYPE html>
-<html lang="en" ng-app="app"}>
+<html lang="en" ng-app="app">
 <head>
     <!--
     The htmlWebpackPlugin will parse the logic below so that trackJS is only added to the production version of index.html (since only webpack.config.prod.js provides the trackJS token)
     This is an example of how to add features to index.html for only one environment.
    -->
-    <% if (htmlWebpackPlugin.options.trackJSToken) { %>
-    <!-- BEGIN TRACKJS -->
-    <script type="text/javascript">window._trackJs = { token: '<%=htmlWebpackPlugin.options.trackJSToken%>' };</script>
-    <script type="text/javascript" src="https://cdn.trackjs.com/releases/current/tracker.js"></script>
-    <!-- END TRACKJS -->
-    <% } %>
+
   <meta charset="UTF-8">
 </head>
 <!-- This file is where you build the Layout. This file is the main site wrapper
