@@ -9,12 +9,11 @@ describe('Index Page test for nav tag', () => {
 });
 
 describe('index.html', () => {
-  it('should have tag module that has a src of movieApp', (done) => {
+  it('should have tag of movie-info', (done) => {
     const index = fs.readFileSync('./src/server/views/index.html', "utf-8");
     jsdom.env(index, function(err, window) {
-      const module = window.document.getElementsByTagName('module')[0];
-      expect(module.attributes[0].nodeName).to.equal('src');
-      expect(module.attributes[0].nodeValue).to.equal('movieApp');
+      const module = window.document.getElementsByTagName('movie-info')[0];
+      expect(module).to.not.equal('undefinded');
       //todo make this line work by creating a custom element
       //expect(module.src).to.equal('movieApp');
       done();

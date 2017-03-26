@@ -9,7 +9,7 @@
   see https://github.com/jaketrent/html-webpack-template/blob/master/index.ejs
   -->
   <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app"}>
 <head>
     <!--
     The htmlWebpackPlugin will parse the logic below so that trackJS is only added to the production version of index.html (since only webpack.config.prod.js provides the trackJS token)
@@ -44,9 +44,7 @@
   </header>
   <div class='row'>
     <div><img src="images/robot-waving-animated-gif-clr .gif" /></div>
-    <module src='movieApp'>
-  <!-- Inject or load Modules Here --->
-    </module>
+     <movie-info></movie-info>
   </div>
 
   <footer>

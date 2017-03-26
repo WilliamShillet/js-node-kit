@@ -1,6 +1,13 @@
 /* eslint-disable no-console */
 /** Main Client Module Loader for basic SPA
-/* This module will load the Config and build page routes*/
+/* create the main angular app module and config*/
 
 import './public/styles/styles.less';
-//import './public/images/logo.jpg'
+import angular from 'angular'
+let app = angular.module('app',[]);
+//load movie app
+import _movieApp from './app/movieApp';
+_movieApp(app);
+
+import _movieService from './app/services/service';
+_movieService(app);
