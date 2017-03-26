@@ -1,16 +1,12 @@
 /* eslint-disable no-unused-vars */
 /** Namespace for Movie App
-/* Here is where you build the MovieApp module */
+/* Here is where you load the MovieApp module features */
+import _movieInfo from './movieInfo';
+import _movieService from './services/service';
 export default (app)=>
 {
-  app.directive('movieInfo',(movieList)=>
-{
-  return {
-     template: `<h1 ng-repeat='movie in movies'> {{movie.title}}!</h1>`,
-     restrict:'E',
-     controller:($scope)=>{
-       $scope.movies = movieList;
-     }
-  }
-} );
+  //load movie app
+  _movieInfo(app);
+  _movieService(app);
+  //etc...other features go here
 }

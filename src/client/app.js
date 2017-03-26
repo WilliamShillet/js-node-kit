@@ -8,6 +8,3 @@ let app = angular.module('app',[]);
 //load movie app
 import _movieApp from './app/movieApp';
 _movieApp(app);
-
-import _movieService from './app/services/service';
-_movieService(app);

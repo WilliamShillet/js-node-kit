@@ -7,13 +7,13 @@
       <th>Genre</th>
       <th>Thumbnail</th>
     </thead>
-    <tbody id="users">
+    <tbody id="movie">
       <tr>
-        <td><a href="#" data-id="${movie.id}" class="table-bordered table-striped table-responsive"></td>
+        <td><a href="#" data-id="{{movie.id}}" class="table-bordered table-striped table-responsive"></td>
         <td>${movie.id}</td>
         <td>${movie.title}</td>
         <td>${movie.genre}</td>
-        <td><img src="${movie.thumbnail}" alt="${movie.title}"></td>
+        <td><img src="{{movie.thumbnail}}" alt="{{movie.title}}"></td>
         </tr>
     </tbody>
   </table>
