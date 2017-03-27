@@ -13,7 +13,7 @@ describe('Our first test', () => {
     const index = fs.readFileSync('./src/client/app/views/movies.html', "utf-8");
     jsdom.env(index, function(err, window) {
       const h1 = window.document.getElementsByTagName('h1')[0];
-      expect(h1.innerHTML).to.equal("Movies");
+      expect(h1.innerHTML).to.equal("Place holder for Movie content");
       done();
       window.close();
     });
