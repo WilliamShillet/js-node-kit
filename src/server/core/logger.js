@@ -52,7 +52,7 @@ export default class loggerService{
                   prettyprint:true
               }),
               new winston.transports.Console({
-                  level: 'info',
+                  level: 'debug',
                   handleExceptions: true,
                   json: false,
                   colorize: true

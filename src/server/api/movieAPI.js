@@ -89,3 +89,21 @@ let service = {
 return service;
 }
 }
+
+export class Controller
+{
+  static  renderHomeView(data)
+  {
+    logger.log(data.length)
+    this.movieHomeView = require('fs').readFileSync('src/server/views/movie/movies.ejs', 'utf-8')
+    return require('ejs').render(this.movieHomeView, {movies: data});
+
+  }
+  static renderAddMovieView(data)
+  {
+    logger.log(data.length)
+    this.movieHomeView = require('fs').readFileSync('src/server/views/movie/addmovie.ejs', 'utf-8')
+    return require('ejs').render(this.movieHomeView, {movie: new Movie()});
+
+  }
+}

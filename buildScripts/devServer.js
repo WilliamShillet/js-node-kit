@@ -13,13 +13,16 @@ import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 //import other libs
 import {default as log} from '../src/server/core/logger'
-//Add logger before anyone else can
+//Add logger info
 let logger = new log('info','error');
 logger.consoleLevel = 'info';
 import moment from 'moment';
 //import movies routes
 import moviesRoute from '../src/server/routes/moviestore';
 import users from '../src/server/routes/users';
+//import API's Here
+import {default as actorAPI} from '../src/server/api/actors'
+
 //Import Web Pack Here
 import webpack from 'webpack';
 import config from '../webpack.config.dev';
@@ -29,12 +32,14 @@ import config from '../webpack.config.dev';
 
 const port = 3000;
 const app = express();
+
 app.use(bodyParser.urlencoded({
   extended: true
 }))
 app.use(bodyParser.json())
 app.use(methodOverride())
 
+app.use(logger.dev);
 app.use(logger.dev);
 
 // parses request cookies, populating
@@ -49,8 +54,6 @@ app.set('view engine', 'ejs');
 
 //Set Up app folders
 app.use('/bower_components',express.static('bower_components'));
-
-app.use('/app', express.static('src/client/app'));
 app.use('/css', express.static('src/client/public/styles'));
 app.use('/images', express.static('src/client/public/images'));
 
@@ -61,7 +64,9 @@ app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath
 }));
-
+ /** Mount Api's Here */
+//Actors Api
+app.use('/api/actors', actorAPI )
  /** Mount Routes Here */
 //mount movie store list
 app.use('/movies', moviesRoute);
