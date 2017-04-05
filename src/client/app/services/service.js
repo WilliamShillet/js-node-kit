@@ -18,9 +18,5 @@ export default class MovieService
      let url = {url: '/movies/delete'};
      return $http(url);
   }
-  static watchMovieList() {
-     let url = {url: '/movies/list/watch'};
-     return $http(url);
-  }
 
 }
