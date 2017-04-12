@@ -26,8 +26,17 @@
     "bootstrap": "^3.3.7",
     "ejs": "^2.5.6",
     "ejs-lint": "^0.2.0",
+    "ejs-render-loader": "^1.0.0",
+    "express-jwt": "^5.1.0",
+    "express-session": "^1.15.2",
+    "fontawesome": "^4.7.2",
     "fs": "0.0.1-security",
+    "jsonwebtoken": "^7.3.0",
     "moment": "^2.18.1",
+    "mongoose": "^4.9.3",
+    "passport": "^0.3.2",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-local": "^1.0.0",
     "whatwg-fetch": "1.0.0"
   },
   "devDependencies": {

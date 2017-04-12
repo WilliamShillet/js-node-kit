@@ -1,5 +1,6 @@
 /**
 * Movie.js this is our model for a movie
+* @TODO make this a mongoose.Schema model instead of this approach
 */
 import {default as log} from '../../server/core/logger'
 
@@ -14,12 +15,12 @@ let logger = new log();
 export default class Movie
 {
   //Getters for Properties
-  get id(){return this[s_id]}
+  get _id(){return this[s_id]}
   get title(){return this[s_title]}
   get genre(){return this[s_genre]}
   get thumbnail(){return this[s_thumbnail]}
   //Setters for Properties
-  constructor(id=0,title="a Movie",genre='Syfy',thumbnail=''){
+  constructor(id,title="a Movie",genre='Syfy',thumbnail=''){
     this[s_id] = id;
     this[s_title] = title;
     this[s_genre] = genre;

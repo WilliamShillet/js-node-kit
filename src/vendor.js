@@ -14,5 +14,8 @@
 
 /* eslint-disable no-unused-vars */
 
+
+import $ from "jquery";
+import 'bootstrap/dist/js/bootstrap';
+import 'fontawesome';
 import fetch from 'whatwg-fetch';
-import bootstrap from 'bootstrap';

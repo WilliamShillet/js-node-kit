@@ -1,10 +1,14 @@
+//@todo change this to use the same pattern as in the other route files
 import express from 'express';
-import  {default as MovieService, Controller}  from '../api/movieapi';
+import  {default as Movie}  from '../models/movie';
+import  {default as MovieService}  from '../api/movieapi';
 import {default as Logger} from '../../server/core/logger'
+
 
 let router = express.Router();
 let movieService = new MovieService();
 let logger = new Logger();
+
 router.use((req, res, next) => {
   logger.log('invoking movie store route.','info');
   next();
@@ -12,66 +16,112 @@ router.use((req, res, next) => {
 
 //do not define next if you are not going to use it
 //unless it is an error handling function
-router.get('/list', function(req, res) {
-   logger.log('getting movie list.','debug');
-    let hmtl = Controller.renderHomeView(movieService.get().list);
-    logger.log('sending movie list.','debug');
-  res.send(hmtl);
-});
+router.get('/', function(req, res,next) {
+    logger.log('getting movie list.','debug');
+    let command = req.query['command'];
+    switch (command) {
+      case 'add':
+        let movie = new Movie();
+        res.render('pages/movies.ejs',{movies:false, adding: movie, editing:false,details:false});
+        break;
+      case 'edit':
 
-router.get('/genre/:id', lookupMovie, (req, res) => {
-  let movie = res.locals.movie;
-  logger.log(`getting movie genre. ${movie.genre}`,'debug');
-  res.send(`The movie Genre is ${movie.genre}.`);
-});
+      logger.log('edit a movie.','debug');
+       movieService.getbyId(req.query['id']).then((result)=>
+     {  logger.log('sending movie list.','debug');
+        res.render('pages/movies.ejs',{movies:false, adding:result,editing:true,details:false});
+     });
+        break;
+      case 'details':
+      //details
+      let movieId = req.params['id'];
+      logger.log(`getting movie details by Id: ${movieId}`,'debug');
+      movieService.getbyId(movieId).then((match)=>
+          {
+        logger.log(`Got movie: ${match}`, 'debug')
 
-//do not define next if you are not going to use it
-//unless it is an error handling function
-router.get('/movie/:id', lookupMovie, (req, res) => {
-  let movie = res.locals.movie;
-  logger.log(`getting movie details by Id: ${movie.id}`,'debug');
-  res.send(`<h3> Movie Title: ${movie.title} Genre:${movie.genre}</h3>`);
-});
+            res.render('pages/movies.ejs',{movies:false, adding:false, editing:false, details:match});
 
-router.get('/delete/:id', lookupMovie, (req, res) => {
-  let movie = res.locals.movie;
-  logger.log(`deleting movie: ${movie.title}`,'debug');
-  movieService.delete(movie.id);
-  res.redirect('back');
-});
+          }).catch((error) => {
+            next(`No matching movie was found for requested Id` );
+         })
+        break;
+      case 'delete':
+        break;
+      default:
+      movieService.get().then((result)=>
+    {  logger.log('sending movie list.','debug');
+       res.render('pages/movies.ejs',{movies: result, adding: false, editing:false, details:false});
 
-
-// this functions finds the movie id for any route to /movies
-//That sends a request parameter of :id
-
-function lookupMovie(req, res, next) {
-
-  let movieId = req.params['id'];
-  //checks to see if value is a number
-
-  if(parseInt(movieId))
-  {
-    let matches = movieService.filter(m => m.id == movieId);
-    if (!matches.length) {
-    next(`No matching movie for id ${movieId} was found` );
-    } else {
-      res.locals.movie = matches[0];
-      next();
+    });
     }
-  }
-  else{
-      next(`Movie for id ${movieId} is not a number `);
 
-  }
-}
-//Error handling
+
+
+
+});
+router.get('/add', function(req, res) {
+   logger.log('adding a movie .','debug');
+     //use model to build a new movie
+     let movie = new Movie();
+     res.render('pages/movies.ejs',{movies:false, adding: movie, editing:false, details:false});
+});
+
+
+// Create/Update movie
+router.post('/add', (req, res,next) => {
+  let movie = req.body;
+
+  movieService.save(movie).then((result)=>
+      {
+        logger.log(`New movie added: ${result}`, 'debug')
+        res.redirect('/movies');
+
+      }).catch((error) => {
+        next(`${error}` );
+     })
+
+});
+
+
+router.get('/genre/:id', (req, res, next) => {
+  let movieId = req.params['id'];
+  logger.log(`getting movie genre by Id: ${movieId}`,'debug');
+  movieService.getbyId(movieId).then((match)=>
+      {
+    logger.log(`Got movie: ${match}`, 'debug')
+
+        res.json(match.genre);
+
+      }).catch((error) => {
+        next(`No matching movie was found for the requested Id ${error}` );
+     })
+
+});
+
+
+router.get('/delete/:id', (req, res, next) => {
+  let movieId = req.params['id'];
+  logger.log(`removing movie by Id: ${movieId}`,'debug');
+  movieService.remove(movieId).then((result)=>
+      {
+    logger.log(` movie was removed:`, 'debug')
+        if(result === 200) res.redirect('/movies');
+
+
+      }).catch((error) => {
+        next(`No matching movie to delete ${error}` );
+     })
+
+});
+
+
+/** Error handling Here we put the error message into an error object
+    and pass it along to the error handling route on devServer.js using next */
 router.use(function (err, req, res, next) {
-/*   res.send(`<h1 class='well'>Error: Could not display movie information.</h1>
-
-    ${err}
-    `); */
-  logger.log(`While getting movie details This happened, ${err} a`,'error');
-  next(err);
+    let error = {message: err, status: 501}
+  logger.log(`Error in moviestore.js While getting movie details This happened, ${err} a`,'error');
+  next(error);
 })
 
 

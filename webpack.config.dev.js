@@ -16,9 +16,10 @@ export default {
     filename: 'bundle.js'
   },
   plugins: [
-        // Create HTML file that includes reference to bundled JS.
+    // Create HTML file that includes reference to bundled JS.
     new HtmlWebpackPlugin({
-      template: 'src/server/views/index.ejs',
+      title: 'M.I.C',
+      template: 'ejs-render?raw=true!src/server/views/pages/index.ejs',
       inject: true
     })
   ],
@@ -47,7 +48,11 @@ export default {
       exclude: /(node_modules|bower_components)/,
       loader: 'file-loader?name=/public/images/[name].[ext]'
     },
-
+    {
+        test: /\.ejs$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'ejs-render'
+      },
 {
   test: /\.html$/,
   exclude: /(node_modules|bower_components)/,

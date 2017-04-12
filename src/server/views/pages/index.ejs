@@ -1,0 +1,32 @@
+<!-- This file is our Basic Layout Template. This file is the main site wrapper for the modules we will load
+     This Template will uses bootstrap jQuery and Fetch to build out our client side applications
+      and ejs to server up the page  and partial templates
+--->
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+ <!-- Head.ejs --->
+ <% include ../partials/head %>
+</head>
+
+<body>
+  <header>
+  <!-- Header.ejs --->
+<% include ../partials/header %>
+  </header>
+  <main>
+    <div class="jumbotron row">
+      <div class="col-xs-12">
+      <img class='welcomeimage' src="images/movielogo.png" />
+      <div class='col-xs-6 '><h2>Welcome to the Movie Information Center</h2></div>
+
+      </div>
+
+    </div>
+ </main>
+
+  <footer>
+      <% include ../partials/footer %>
+  </footer>
+</body>
+</html>

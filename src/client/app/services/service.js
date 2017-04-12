@@ -3,7 +3,16 @@
 *   This class will be where the you put Client side services
 */
 import {default as $http} from './httpservice';
-export default class MovieService
+export class HomeService
+{
+  static load() {
+     let url = {url: '/'};
+     return $http(url);
+
+  }
+}
+
+export class MovieService
 {
   static getMovieList() {
      let url = {url: '/movies/list'};

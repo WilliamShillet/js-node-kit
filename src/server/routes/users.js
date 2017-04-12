@@ -4,7 +4,7 @@ import{default as jsonfileservice} from "./utils/jsonfileservice";
 import {default as log} from '../../server/core/logger'
 //create logger;
 let logger = new log();
-let router = express.Router();
+
 
 //User Service
 let list = [];
@@ -76,7 +76,7 @@ let listRoute =  (req, res) => {
     and sort order ${sortOrder}`);
 };
 
-// End Router Middleware Functions
+// End the Services Router Middleware Functions
 
      //object to be returned
      let userrouter = {
@@ -93,19 +93,17 @@ let listRoute =  (req, res) => {
 }
 // all code above this point could be moved into a user service file
 //Below is where all the magic happens
+//define express Router
+
+let router = express.Router();
+
+//setup for google
+router.get('/', function(req, res) {
+  res.render('users', {user: {name: req.user.displayName,
+                              image: req.user._json.image.url}});
+});
+
 let userRouter = new UserService();
-
-router.use(userRouter.userlog);
-
-router.use(userRouter.checkForSecretKey);
-
-router.get('/', userRouter.userlist);
-
-router.get('/count',userRouter.length);
-
-router.get('/list',userRouter.listRoute);
-//this takes a route parameter of id
-router.get('/:id', userRouter.getUser);
 
 
 

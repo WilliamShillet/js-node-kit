@@ -1,8 +1,20 @@
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import "vars";
 @import "mixins";
 @import "topo";
 @import "pages";
 @import "forms";
+
+//styles for google login
+.loginheader{
+font-size: @font-base-size+ 15px
+
+}
+.googleplus{
+  font-size: @font-base-size+ 25px
+}
+
 .headerlogo {
     float: left;
     margin-right: 10px;
@@ -29,8 +41,9 @@
 }
 
 
-#welcomeimage {
+.welcomeimage  {
     float: left;
+    align-content: center;
     width: 700px;
 }
 
@@ -39,8 +52,8 @@
     width: 290px;
 }
 
-#welcometext {
-    float: left;
+.welcometext {
+    align-content: center;
     width: 70%;
     font-size: @font-base-size;
     margin-top: 20px;
