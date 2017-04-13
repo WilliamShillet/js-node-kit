@@ -1,4 +1,4 @@
-
+//@todo change to use fetch
 export default http => {
     return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();

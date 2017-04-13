@@ -1,33 +1,33 @@
-/*eslint-disable no-console */
 import webpack from 'webpack';
 import webpackConfig from '../webpack.config.prod';
-import chalk from 'chalk';
+import {default as Logger} from '../src/server/core/logger'
+let logger = new Logger();
 
 process.env.NODE_ENV = 'production';
 
-console.log(chalk.blue('Generating minified bundle for production. This will take a moment...'));
+logger.log('Generating minified bundle for production. This will take a moment...','info');
 
 webpack(webpackConfig).run((err, stats) => {
   if (err) { // so a fatal error occurred. Stop here.
-    console.log(chalk.red(err));
+    logger.log(err, 'error');
     return 1;
   }
 
   const jsonStats = stats.toJson();
 
   if (jsonStats.hasErrors) {
-    return jsonStats.errors.map(error => console.log(chalk.red(error)));
+    return jsonStats.errors.map(error => logger.log(error,'error'));
   }
 
   if (jsonStats.hasWarnings) {
-    console.log(chalk.yellow('Webpack generated the following warnings: '));
-    jsonStats.warnings.map(warning => console.log(chalk.yellow(warning)));
+    logger.log('Webpack generated the following warnings: ', 'warn');
+    jsonStats.warnings.map(warning => logger.log(warning),'warn');
   }
 
-  console.log(`Webpack stats: ${stats}`);
+  logger.log(`Webpack stats: ${stats}`,'info');
 
   // if we got this far, the build succeeded.
-  console.log(chalk.green('Your app has been built for production and written to /dist!'));
+  logger.log('Your app has been built for production and written to /dist!','info');
 
   return 0;
 });

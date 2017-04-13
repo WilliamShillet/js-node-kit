@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 /** Main Client Module Loader for basic SPA*/
 
 //import in styles

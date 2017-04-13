@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {default as log} from '../../server/core/logger'
 //create logger;
 let logger = new log();

@@ -1,13 +1,11 @@
 import {expect} from 'chai';
-import jsdom from 'jsdom';
-import fs from 'fs';
 import  {default as MovieService}  from '../api/movieapi';
 import {default as Movie} from '../models/movie';
 import {default as Logger} from '../../server/core/logger'
 let logger = new Logger();
 //MovieSerive Test Go Here
 let movieService = new MovieService();
-
+let count = 0;
 describe('Our first test', () => {
   it('should pass', () => {
     expect(true).to.equal(true);
@@ -16,24 +14,32 @@ describe('Our first test', () => {
 describe('MovieServie Get List Test', () => {
   it('should pass', () => {
       movieService.get().then((result)=>{
-      expect(result.length).to.equal(8);
+    logger.log(JSON.stringify(result),'info');
+      count = result.length;
+      expect(count).to.equal(8);
     });
   });
 });
 describe('MovieServie addMovie Test', () => {
   it('should pass', () => {
     let newMovie = new Movie("58e63cf1a8a5012c4ccd3415",'Don Juen','Drama');
-    expect(movieService.save(newMovie)).to.equal(true)
+    movieService.save(newMovie).then((result)=>{
+      expect(result.id).to.equal("58e63cf1a8a5012c4ccd3415")
+      expect(result.title).to.equal("Don Juen")
+      expect(result.genre).to.equal("Drama")
+      });
+
+
   });
 });
 describe('MovieServie getMovieList Test after addMovie', () => {
   it('should pass', () => {
     movieService.get().then((result)=>{
-    expect(result.length).to.equal(9);
+    expect(result.length).to.equal(count+1);
   });
   });
 });
-describe('MovieServie deleteMovie Test', () => {
+describe('MovieServie delete Movie Test', () => {
   it('should pass', () => {
     movieService.remove("58e63cf1a8a5012c4ccd3415").then((result)=>
     {
@@ -41,9 +47,12 @@ describe('MovieServie deleteMovie Test', () => {
     });
   });
 });
-describe('MovieServie getMovieList Test after deleteMovie', () => {
+describe('after deleteMovie test', () => {
   it('should pass', () => {
-    expect(movieService.get().list.length).to.equal(7);
+    movieService.get().then((result)=>{
+      expect(result.length).to.equal(count);
+  });
+
   });
 });
 //@todo change test to match new design

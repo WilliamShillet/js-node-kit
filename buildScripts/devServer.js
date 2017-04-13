@@ -1,10 +1,9 @@
-
-/* eslint-disable no-console*/
 /* eslint-disable no-unused-vars */
 /** Note this file was designed for front end loading
 /* @todo remove the express and other the application specific code
 /* to a server side application file and load express there */
 //import base libs that you will need for the application
+import 'babel-polyfill';
 import express from 'express';
 import path from 'path';
 import open from 'open';
@@ -52,59 +51,15 @@ import {default as Database} from  "../src/server/data/db";
  everytime the application starts for testing */
 //Add sample data here
 Database.connect().then(() => {
-  // drop everything
-  Database.db.dropDatabase().then(() => {
-    // seed with new movies
-    Database.db.collection('movies').insert(
-      [
-          {
-              "title": "Juno",
-              "genre": "Drama",
-              "thumbnail": ""
-          },
-          {
-              "title": "Star Wars",
-              "genre": "Sy-Fy",
-              "thumbnail": ""
-          },
-          {
-              "title": "Big",
-              "genre": "Sy-Fy",
-              "thumbnail": ""
-          },
-          {
-              "title": "Juno",
-              "genre": "Drama",
-              "thumbnail": ""
-          },
-          {
-              "title": "IRObot",
-              "genre": "Sy-Fy",
-              "thumbnail": ""
-          },
-          {
-              "title": "Logan",
-              "genre": "Sy-Fy",
-              "thumbnail": ""
-          },
-          {
-
-              "title": "The Lego Movie",
-              "genre": "Comedy",
-              "thumbnail": ""
-          },
-          {
-              "title": "The Green Mile",
-              "genre": "Sy-Fy",
-              "thumbnail": ""
-          }
-      ]
-  );
-  });
-})
+logger.log("Database is connected")
+}).catch((error)=>{
+  logger.log(error, 'error')
+});
 //Constants go Here
 const port = 3000;
-const app = express();
+const app = express(() => {
+logger.log("Database is connected")
+});
 
 /** Database Connections go Here */
 mongoose.connect("mongodb://localhost/MovieApp");

@@ -33,7 +33,8 @@ export default {
 
     // Create HTML file that includes reference to bundled JS.
     new HtmlWebpackPlugin({
-      template: 'src/server/views/index.html',
+      title: 'M.I.C',
+      template: 'ejs-render?raw=true!src/server/views/pages/index.ejs',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -83,7 +84,26 @@ export default {
   exclude: /(node_modules|bower_components)/,
   loader: 'file-loader?name=/images/[name].[ext]'
 },
-      {test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap')}
+{test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap')},
+{
+  test: /\.(eot|svg|ttf|woff|woff2)$/,
+  exclude: /(node_modules|bower_components)/,
+  loader: 'url-loader?limit=10000'
+},
+{  test: /\.(jpg|png|gif|svg)$/i,
+exclude: /(node_modules|bower_components)/,
+loader: 'file-loader?name=/public/images/[name].[ext]'
+},
+{
+  test: /\.ejs$/,
+  exclude: /(node_modules|bower_components)/,
+  loader: 'ejs-render'
+},
+{
+test: /\.html$/,
+exclude: /(node_modules|bower_components)/,
+loader: 'raw-loader'
+}
     ]
   }
 };

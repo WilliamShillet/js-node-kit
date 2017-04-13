@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import express from 'express';
 //import jsonfileservice'  This is for servering a user data file for testing;
 import{default as jsonfileservice} from "./utils/jsonfileservice";
@@ -94,6 +95,7 @@ let listRoute =  (req, res) => {
 // all code above this point could be moved into a user service file
 //Below is where all the magic happens
 //define express Router
+//let userRouter = new UserService();
 
 let router = express.Router();
 
@@ -103,7 +105,7 @@ router.get('/', function(req, res) {
                               image: req.user._json.image.url}});
 });
 
-let userRouter = new UserService();
+
 
 
 

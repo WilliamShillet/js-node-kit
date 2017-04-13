@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-case-declarations */
 //@todo change this to use the same pattern as in the other route files
 import express from 'express';
 import  {default as Movie}  from '../models/movie';
@@ -18,6 +20,7 @@ router.use((req, res, next) => {
 //unless it is an error handling function
 router.get('/', function(req, res,next) {
     logger.log('getting movie list.','debug');
+
     let command = req.query['command'];
     switch (command) {
       case 'add':
@@ -51,6 +54,7 @@ router.get('/', function(req, res,next) {
       default:
       movieService.get().then((result)=>
     {  logger.log('sending movie list.','debug');
+       logger.log(result.length,'info');
        res.render('pages/movies.ejs',{movies: result, adding: false, editing:false, details:false});
 
     });
