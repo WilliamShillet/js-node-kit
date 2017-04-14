@@ -10,13 +10,13 @@ export default {
   noInfo: false,
   entry: {
     vendor: path.resolve(__dirname, 'src/vendor'),
-    main: path.resolve(__dirname, 'src/client/app')
+    bundle: path.resolve(__dirname, 'src/client/app')
   },
   target: 'web',
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: '[name].[chunkhash].js'
+    filename: '[name].js'
   },
   plugins: [
     // Generate an external css file with a hash in the filename
@@ -89,10 +89,6 @@ export default {
   test: /\.(eot|svg|ttf|woff|woff2)$/,
   exclude: /(node_modules|bower_components)/,
   loader: 'url-loader?limit=10000'
-},
-{  test: /\.(jpg|png|gif|svg)$/i,
-exclude: /(node_modules|bower_components)/,
-loader: 'file-loader?name=/public/images/[name].[ext]'
 },
 {
   test: /\.ejs$/,

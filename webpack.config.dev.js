@@ -21,9 +21,9 @@ export default {
   plugins: [
     // Create HTML file that includes reference to bundled JS.
     new HtmlWebpackPlugin({
-      title: 'M.I.C',
-      template: 'ejs-render?raw=true!src/server/views/pages/index.ejs',
-      inject: true
+      inject: 'head',
+      template: 'ejs-render?raw=true&&title=true!src/server/views/pages/index.ejs'
+
     })
   ],
   module: {
@@ -54,7 +54,8 @@ export default {
     {
         test: /\.ejs$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'ejs-render'
+        loader: 'ejs-render',
+        use: 'ejs-render'
       },
 {
   test: /\.html$/,

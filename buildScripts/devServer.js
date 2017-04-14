@@ -64,7 +64,14 @@ logger.log("Database is connected")
 /** Database Connections go Here */
 mongoose.connect("mongodb://localhost/MovieApp");
 
-
+app.locals.site ={
+    title: 'Movie Center',
+    description: ' Node.JS and Express backend, with an EJS template with using Twitter Bootstrap.'
+};
+app.locals.author = {
+    name: 'Chad Martin',
+    contact: 'chad.martin@gmail.com'
+};
 
 
 

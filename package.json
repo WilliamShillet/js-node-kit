@@ -27,6 +27,7 @@
     "ejs": "^2.5.6",
     "ejs-lint": "^0.2.0",
     "ejs-render-loader": "^1.0.0",
+    "ejs-simple-loader": "^0.1.0",
     "express-jwt": "^5.1.0",
     "express-session": "^1.15.2",
     "fontawesome": "^4.7.2",

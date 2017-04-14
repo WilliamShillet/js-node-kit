@@ -8,4 +8,5 @@ import './public/images/film.png';
 import './public/images/movielogo.png';
 //import bootstrap and font awesome
 import bootstrap from 'bootstrap';
-//load the client side apps you want to use
+//load the client  config
+const config = true;

@@ -43,11 +43,9 @@ app.use(compression());
 app.use(express.static('dist'));
 //app.use('/lib', express.static('../dist/lib'));
 app.use('/css', express.static('../dist/styles'));
-app.use('/images', express.static('src/client/public/images'));
+//app.use('/images', express.static('src/client/public/images'));
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
-});
+
 
 
 /** @todo create a service for loading data into the database

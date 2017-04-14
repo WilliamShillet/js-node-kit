@@ -16,6 +16,6 @@
 
 
 import $ from "jquery";
-import 'bootstrap/dist/js/bootstrap';
+import bootstrap from 'bootstrap';
 import 'fontawesome';
 import fetch from 'whatwg-fetch';
