@@ -14,4 +14,9 @@
 
 /* eslint-disable no-unused-vars */
 
-import fetch from 'whatwg-fetch';
+import 'whatwg-fetch';
+import 'jquery';
+import 'bootstrap';
+import 'fontawesome';
+import 'angular';
+import 'angular-resource';

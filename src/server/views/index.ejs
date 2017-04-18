@@ -9,14 +9,21 @@
   see https://github.com/jaketrent/html-webpack-template/blob/master/index.ejs
   -->
   <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" >
 <head>
     <!--
     The htmlWebpackPlugin will parse the logic below so that trackJS is only added to the production version of index.html (since only webpack.config.prod.js provides the trackJS token)
     This is an example of how to add features to index.html for only one environment.
    -->
-
   <meta charset="UTF-8">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <% if (htmlWebpackPlugin.options.trackJSToken) { %>
+  <!-- BEGIN TRACKJS -->
+  <script type="text/javascript">window._trackJs = { token: '<%=htmlWebpackPlugin.options.trackJSToken%>' };</script>
+  <script type="text/javascript" src="https://cdn.trackjs.com/releases/current/tracker.js"></script>
+  <!-- END TRACKJS -->
+  <% } %>
+
 </head>
 <!-- This file is where you build the Layout. This file is the main site wrapper
      for the modules you will load --->
@@ -24,9 +31,9 @@
   <header>
       <div>
           <a class="headerlogo" href="index.html">
-              <img src="images/logo.jpg" />
+              <img src="images/film.png" />
           </a>
-          <span id="headername">Mr. Robot</span>
+          <span id="headername"><%= htmlWebpackPlugin.options.fullTitle %></span>
           <input type="search" class="searchbox" placeholder="Search our store" />
       </div>
       <nav class="navbar-background">
@@ -37,9 +44,23 @@
           </ul>
       </nav>
   </header>
-  <div class='row'>
-    <div><img src="images/robot-waving-animated-gif-clr .gif" /></div>
-     <movie-info></movie-info>
+  <div class='row' >
+    <div <div class='col-xs-12'>
+    <img src="images/movielogo.png" />
+    </div>
+
+    <div class='col-xs-12'ng-app="movieApp">
+      <ui-view class='col-xs-6'>
+
+      </ui-view>
+      <div class='col-xs-6'>
+           <movie-info></movie-info>
+      </div>
+    </div>
+
+
+    </div>
+
   </div>
 
   <footer>

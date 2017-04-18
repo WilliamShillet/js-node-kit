@@ -1,4 +1,5 @@
 import path from 'path';
+import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 
@@ -18,9 +19,15 @@ export default {
   plugins: [
         // Create HTML file that includes reference to bundled JS.
     new HtmlWebpackPlugin({
-      template: 'src/server/views/index.html',
+      title:'M.I.C',
+      fullTitle: 'Movie Information System',
+      template: 'src/server/views/index.ejs',
       inject: true
-    })
+    }),
+    new webpack.ProvidePlugin({
+          $: "jquery",
+          jQuery: "jquery"
+      })
   ],
   module: {
       loaders: [

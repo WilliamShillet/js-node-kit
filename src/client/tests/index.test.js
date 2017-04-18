@@ -10,7 +10,7 @@ describe('Index Page test for nav tag', () => {
 
 describe('index.html', () => {
   it('should have tag of movie-info', (done) => {
-    const index = fs.readFileSync('./src/server/views/index.html', "utf-8");
+    const index = fs.readFileSync('./src/server/views/index.ejs', "utf-8");
     jsdom.env(index, function(err, window) {
       const module = window.document.getElementsByTagName('movie-info')[0];
       expect(module).to.not.equal('undefinded');

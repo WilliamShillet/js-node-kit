@@ -1,5 +1,6 @@
 /*eslint-disable no-console */
-
+import {default as Logger} from '../../../server/core/logger';
+let logger = new Logger();
 //ES6 modules errorHandler
 let errorHandler  = function() {
     let service = {
@@ -9,21 +10,28 @@ let errorHandler  = function() {
     return service;
 
     function init(err, req, res, next) {
-        var status = err.statusCode || 500;
-        if (err.message) {
-            res.send(status, err.message);
-        } else {
-            res.send(status, err);
-        }
+      if (err.message) {
+        res.render('pages/error', {
+        message: err.message,
+        error: err,
+        stack: err.stack
+      });
+    }
+    else {
+      res.render('pages/error', {
+      message: err,
+      error: err
+    });
+    }
         next();
     }
 
     /* Our fall through error logger and errorHandler  */
     function logErrors(err, req, res, next) {
-        var status = err.statusCode || 500;
-        console.error(status + ' ' + (err.message ? err.message : err));
+        res.status(err.statusCode || 500);
+        logger.log(err.message,'error');
         if (err.stack) {
-            console.error(err.stack);
+            logger.log(err.stack,'error');
         }
         next(err);
     }

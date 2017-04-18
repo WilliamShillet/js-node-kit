@@ -11,8 +11,10 @@ export default {
   entry: {
     vendor: path.resolve(__dirname, 'src/vendor'),
     main: path.resolve(__dirname, 'src/client/app')
+
   },
   target: 'web',
+  watch: true,
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
@@ -33,7 +35,9 @@ export default {
 
     // Create HTML file that includes reference to bundled JS.
     new HtmlWebpackPlugin({
-      template: 'src/server/views/index.html',
+      title:'M.I.C',
+      fullTitle: 'Movie Information System',
+      template: 'src/server/views/index.ejs',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -42,21 +46,21 @@ export default {
         removeEmptyAttributes: true,
         removeStyleLinkTypeAttributes: true,
         keepClosingSlash: true,
-        minifyJS: true,
+        minifyJS: false,
         minifyCSS: true,
         minifyURLs: true
       },
       inject: true,
       // Properties you define here are available in index.html
       // using htmlWebpackPlugin.options.varName
-      trackJSToken: '43ad216f57d94259968435894490a5c7'
+      trackJSToken: '14541560b2b94bae97aed36710c81c08'
     }),
 
     // Eliminate duplicate packages when generating bundle
     new webpack.optimize.DedupePlugin(),
 
-    // Minify JS
-    new webpack.optimize.UglifyJsPlugin()
+    // Minify JS @todo Make sure to cover how to make angular safe to minfy before using this
+    //new webpack.optimize.UglifyJsPlugin()
   ],
   module: {
     loaders: [
@@ -71,22 +75,33 @@ export default {
       //this is for loading Less and CSS
       {
         test: /\.less$/,
-        loader: "style!css!autoprefixer!less?sourceMap", include: path.join(__dirname, 'src/client/public/styles')},
-      { test: /\.css$/, loader: 'style-loader!css-loader?sourceMap', include: path.join(__dirname, 'src/client/public/styles')},
-      //This is for loading image files and fonts
+        loader: "style!css!autoprefixer!less?sourceMap",
+        include: path.join(__dirname, 'src/client/public/styles')
+      },
+        //This is for loading image files and fonts
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'url-loader?limit=10000'
+        loader: 'url-loader?limit=10000',
+        include: path.join(__dirname, 'src/client/public/fonts'),
+        options: {
+          name: '[dist][fonts][name].[ext]',
+        },
       },
   {  test: /\.(jpg|png|gif|svg)$/,
   exclude: /(node_modules|bower_components)/,
   loader: 'file-loader',
+  include: path.join(__dirname, 'src/client/public/images'),
   options: {
-    name: '[images/][name].[ext]',
+    name: '[dist][images][name].[ext]',
   },
 },
-      {test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap')}
+{
+  test: /\.html$/,
+  exclude: /(node_modules|bower_components)/,
+  loader: 'raw-loader'
+},
+    {test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap')}
     ]
   }
 };
