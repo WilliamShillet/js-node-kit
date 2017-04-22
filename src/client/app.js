@@ -7,6 +7,7 @@ import './public/styles/styles.less';
 import './public/images/film.png';
 import './public/images/movielogo.png';
 //import bootstrap and font awesome
+
 import bootstrap from 'bootstrap';
 //load the client  config
 const config = true;

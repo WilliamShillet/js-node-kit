@@ -41,12 +41,11 @@ app.use(compression());
 
 //Set Up app folders
 app.use(express.static('dist'));
-//app.use('/lib', express.static('../dist/lib'));
 app.use('/css', express.static('../dist/styles'));
-//app.use('/images', express.static('src/client/public/images'));
 
-
-
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
 
 /** @todo create a service for loading data into the database
  everytime the application starts for testing */
@@ -61,10 +60,6 @@ catch((error)=>{
 
 /** Database Connections go Here */
 mongoose.connect("mongodb://localhost/MovieApp");
-
-
-
-
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -119,36 +114,13 @@ let err = {message: 'Test route is Testing Error Route', status: 509, stack: [{m
   next(err)
 });
 
-// dev error handler catch all
-app.use(function (err, req, res) {
-  res.status(err['status'] || 500);
-  if (err.message) {
-    logger.log(err.message,'error');
-    res.render('pages/error', {
-    message: err.message,
-    error: err,
-    stack: err.stack
-
-  });
-}
-else {
-  logger.log(err,'error');
-  res.render('pages/error', {
-  message: err,
-  error: err
-});
-}
-
-})
-
-
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function (err, req, res, next) {
-  console.error(err.stack)
+  logger.log(err ,'error');
   res.status(err['status'] || 500);
-  res.render('error', {
+  res.render('pages/error.ejs', {
     message: err.message,
     error: {}
   });
@@ -157,7 +129,7 @@ app.use(function (err, req, res, next) {
 
 app.listen(port, function(err) {
   if (err) {
-    console.log(err);
+    logger.log(err);
   } else {
     open('http://localhost:' + port);
   }

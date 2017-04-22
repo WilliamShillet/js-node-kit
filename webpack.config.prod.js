@@ -34,7 +34,8 @@ export default {
     // Create HTML file that includes reference to bundled JS.
     new HtmlWebpackPlugin({
       title: 'M.I.C',
-      template: 'ejs-render?raw=true!src/server/views/pages/index.ejs',
+      inject: true,
+      template: 'src/server/views/pages/index.ejs',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -47,7 +48,6 @@ export default {
         minifyCSS: true,
         minifyURLs: true
       },
-      inject: true,
       // Properties you define here are available in index.html
       // using htmlWebpackPlugin.options.varName
       trackJSToken: '43ad216f57d94259968435894490a5c7'
@@ -89,11 +89,6 @@ export default {
   test: /\.(eot|svg|ttf|woff|woff2)$/,
   exclude: /(node_modules|bower_components)/,
   loader: 'url-loader?limit=10000'
-},
-{
-  test: /\.ejs$/,
-  exclude: /(node_modules|bower_components)/,
-  loader: 'ejs-render'
 },
 {
 test: /\.html$/,
