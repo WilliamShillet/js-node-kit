@@ -18,7 +18,7 @@ export default {
   plugins: [
         // Create HTML file that includes reference to bundled JS.
     new HtmlWebpackPlugin({
-      template: 'src/server/views/index.ejs',
+      template: 'src/server/views/pages/index.ejs',
       inject: true
     })
   ],

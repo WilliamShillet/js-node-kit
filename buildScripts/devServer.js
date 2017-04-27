@@ -1,6 +1,6 @@
 
 /* eslint-disable no-console*/
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars*/
 /** Note this file was designed for front end loading
 /* @todo remove the express and other the application specific code
 /* to a server side application file and load express there */
@@ -11,13 +11,13 @@ import open from 'open';
 //import other libs
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
-//import bodyParser from 'body-parser';
+import bodyParser from 'body-parser';
 
 //Import Web Pack Here
 import webpack from 'webpack';
 import config from '../webpack.config.dev';
 import moment from 'moment';
-import {default as templateService} from '../src/server/api/templateService';
+import moviesRoute from '../src/server/routes/moviestore';
 
 const port = 3000;
 const app = express();
@@ -28,8 +28,11 @@ const app = express();
 
 app.use(cookieParser('foobars'));
 // parses json, x-www-form-urlencoded, and multipart/form-data
-//app.use(bodyParser());
+app.use(bodyParser());
+
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname,'../src/server/views/')); //set as default path for views
+app.set("view options", { layout: false });
 
 //Set Up app folders
 app.use('/bower_components',express.static('bower_components'));
@@ -44,20 +47,10 @@ app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath
 }));
-app.get('/template', function(req, res){
-
-    res.send(templateService.say());
-
-});
-app.post('/template', function(req, res){
 
 
-  res.redirect('back');
-});
-
-app.get('/users', function(req, res) {
-
-});
+//mount movie store module here
+app.use('/movies', moviesRoute);
 
 app.listen(port, function(err) {
   if (err) {
